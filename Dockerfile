@@ -9,4 +9,4 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --production
 COPY --from=builder /app/dist ./dist
-RUN npm run start
+CMD [ "npm", "run", "start" ]
