@@ -1,6 +1,6 @@
 {
   "name": "auth-system",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "ts-node-dev --respawn --transpile-only app.ts"
@@ -8,7 +8,8 @@
   "dependencies": {
     "dotenv": "^16.0.1",
     "tslib": "^2.3.1",
-    "twitter-api-sdk": "^1.0.7"
+    "twitter-api-sdk": "^1.0.7",
+    "twitter-api-v2": "^1.12.2"
   },
   "devDependencies": {
     "@types/node": "^16.0.13",
