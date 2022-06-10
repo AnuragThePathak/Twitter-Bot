@@ -35,7 +35,7 @@ async function app(retry: number) {
     if (retry > 7) {
       exit()
     }
-    
+
     setTimeout(() => {
       console.warn("Reconnect attempt: ", retry)
       app(++retry)
@@ -47,9 +47,9 @@ async function setRulesAndGetId(client: Client, userClient: TwitterApi) {
   try {
     await client.tweets.addOrDeleteRules({
       add: [
-        { value: "#golang -is:retweet -is:reply lang:en" },
-        { value: "#gopher -is:retweet -is:reply lang:en" },
-      ],
+        { value: "#golang -is:retweet -is:reply lang:en -#100DaysOfCode -#php -MachineLearning -DataScience  -BigData -Analytics -AI -IIoT -Python -RStats -TensorFlow -JavaScript -ReactJS -DataScience -DataScientist -#C -#nodejs" },
+        { value: "#gopher -is:retweet -is:reply lang:en -#100DaysOfCode -#php -MachineLearning -DataScience  -BigData -Analytics -AI -IIoT -Python -RStats -TensorFlow -JavaScript -ReactJS -DataScience -DataScientist -#C -#nodejs" },
+      ]
     })
 
     const rules = await client.tweets.getRules()
