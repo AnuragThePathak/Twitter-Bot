@@ -3,18 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node ./dist/index.js --env=production",
+    "start": "NODE_ENV=production node ./dist/index.js",
     "build": "tsc --project .",
     "dev": "ts-node-dev --respawn --transpile-only index.ts"
   },
   "dependencies": {
     "dotenv": "^16.0.1",
+    "loglevel": "^1.8.0",
     "tslib": "^2.3.1",
     "twitter-api-sdk": "^1.0.7",
     "twitter-api-v2": "^1.12.2"
   },
   "devDependencies": {
-    "@types/node": "^16.0.13",
+    "@types/node": "^16.11.41",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.5.5"
   }

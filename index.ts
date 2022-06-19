@@ -1,7 +1,14 @@
 import "dotenv/config"
+import log from "loglevel"
 import { exit } from "process"
 import { Client } from "twitter-api-sdk"
 import { TwitterApi } from "twitter-api-v2"
+
+log.setDefaultLevel(log.levels.DEBUG)
+
+if (process.env.NODE_ENV == "production") {
+  log.setLevel(log.levels.INFO)
+}
 
 app(0)
 
@@ -24,20 +31,22 @@ async function app(retry: number) {
 
     for await (const tweet of stream) {
       retry = 0
+      log.debug(tweet)
       if (!tweet.data.possibly_sensitive) {
-        userClient.v2.retweet(userId, tweet.data.id)
-          .catch((e) => console.error(e))
+        userClient.v2.retweet(userId as string, tweet.data.id)
+          .then((res) => log.debug(res.data.retweeted))
+          .catch((e) => log.error(e))
       }
     }
   } catch (e) {
-    console.error(e)
+    log.error(e)
 
     if (retry > 7) {
       exit()
     }
 
     setTimeout(() => {
-      console.warn("Reconnect attempt: ", retry)
+      log.warn("Reconnect attempt: ", retry)
       app(++retry)
     }, 2 ** retry)
   }
@@ -53,11 +62,13 @@ async function setRulesAndGetId(client: Client, userClient: TwitterApi) {
     })
 
     const rules = await client.tweets.getRules()
-    console.log(rules)
+    log.info(rules)
 
-    return (await userClient.v2.me({ "user.fields": ["id"] })).data.id
+    const user = await userClient.v2.me({ "user.fields": ["id"] })
+    log.debug(user)
+    return user.data.id
   } catch (e) {
-    console.error(e)
+    log.error(e)
     exit()
   }
 }
