@@ -57,8 +57,7 @@ async function setRulesAndGetId(client: Client, userClient: TwitterApi) {
     await client.tweets.addOrDeleteRules({
       add: [
         { value: "#golang -is:retweet -is:reply lang:en -#100DaysOfCode -#php -MachineLearning -DataScience  -BigData -Analytics -AI -IIoT -Python -RStats -TensorFlow -JavaScript -ReactJS -DataScience -DataScientist -#C -#nodejs" },
-        { value: "#gopher -is:retweet -is:reply lang:en -#100DaysOfCode -#php -MachineLearning -DataScience  -BigData -Analytics -AI -IIoT -Python -RStats -TensorFlow -JavaScript -ReactJS -DataScience -DataScientist -#C -#nodejs" },
-      ]
+      ],
     })
 
     const rules = await client.tweets.getRules()
